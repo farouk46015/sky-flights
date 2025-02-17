@@ -1,10 +1,6 @@
-import type { ApiResponse } from "@/types/api";
-import type {
-  Coordinates,
-  FlightSearchParams,
-  CalendarSearchParams,
-} from "@/types/flight";
-import { api } from "../ApiClient";
+import type { ApiResponse } from '@flights/types/api';
+import type { Coordinates, FlightSearchParams, CalendarSearchParams } from '@flights/types/flight';
+import { api } from '../ApiClient';
 
 export interface ApiErrorResponse {
   status: false;
@@ -13,14 +9,14 @@ export interface ApiErrorResponse {
 
 export const flightsApi = {
   searchAirports: async (query: string) => {
-    const locale = localStorage.getItem("userLocale") || "en-US";
+    const locale = localStorage.getItem('userLocale') || 'en-US';
     try {
       const response = await api
         .v1() // or .v2() for v2 endpoints
         .flights()
         .request({
-          method: "GET",
-          url: "searchAirport",
+          method: 'GET',
+          url: 'searchAirport',
           params: { query, locale },
         });
 
@@ -30,31 +26,29 @@ export const flightsApi = {
       throw error;
     }
   },
-  getNearByAirports: async (params: Coordinates) => {
-    const locale = localStorage.getItem("userLocale") || "en-US";
+  getNearByAirports: async <T = unknown>(params: Coordinates) => {
+    const locale = localStorage.getItem('userLocale') || 'en-US';
     try {
       const response = await api.flights().request({
-        method: "GET",
-        url: "getNearByAirports",
+        method: 'GET',
+        url: 'getNearByAirports',
         params: { ...params, locale: locale },
       });
-      return response.data;
+      return response.data as Promise<T>;
     } catch (error) {
       console.error(error);
       throw error;
     }
   },
-  searchFlights: async (
-    params: FlightSearchParams
-  ): Promise<ApiResponse | ApiErrorResponse> => {
-    const currency = localStorage.getItem("userCurrency") || "USD";
-    let country = localStorage.getItem("userCountry");
-    country = country ? country.split("__")[0] : "US";
-    const market = country ? country.split("__")[1] : "en-US";
+  searchFlights: async (params: FlightSearchParams): Promise<ApiResponse | ApiErrorResponse> => {
+    const currency = localStorage.getItem('userCurrency') || 'USD';
+    let country = localStorage.getItem('userCountry');
+    country = country ? country.split('__')[0] : 'US';
+    const market = country ? country.split('__')[1] : 'en-US';
     try {
       const response = await api.flights().request({
-        method: "GET",
-        url: "searchFlights",
+        method: 'GET',
+        url: 'searchFlights',
         params: {
           ...params,
           currency: currency,
@@ -64,6 +58,7 @@ export const flightsApi = {
       });
 
       return response.data as ApiResponse;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response?.data) {
         return error.response.data as ApiErrorResponse;
@@ -71,17 +66,16 @@ export const flightsApi = {
       throw error;
     }
   },
-  searchFlightsV2: async (
-    params: FlightSearchParams
-  ): Promise<ApiResponse | ApiErrorResponse> => {
+  searchFlightsV2: async (params: FlightSearchParams): Promise<ApiResponse | ApiErrorResponse> => {
     try {
       const response = await api.v2().flights().request({
-        method: "GET",
-        url: "searchFlights",
+        method: 'GET',
+        url: 'searchFlights',
         params,
       });
 
       return response.data as ApiResponse;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response?.data) {
         return error.response.data as ApiErrorResponse;
@@ -91,10 +85,10 @@ export const flightsApi = {
   },
   getPriceCalendar: async (params: CalendarSearchParams) => {
     try {
-      const currency = localStorage.getItem("userCurrency") || "USD";
+      const currency = localStorage.getItem('userCurrency') || 'USD';
       const response = await api.flights().request({
-        method: "GET",
-        url: "getPriceCalendar",
+        method: 'GET',
+        url: 'getPriceCalendar',
         params: { ...params, currency },
       });
       return response.data;

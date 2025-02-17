@@ -1,7 +1,7 @@
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-export type ApiNamespace = "flights" | "hotels" | "cars" | "houses";
-export type ApiVersion = "v1" | "v2";
+export type ApiNamespace = 'flights' | 'hotels' | 'cars' | 'houses';
+export type ApiVersion = 'v1' | 'v2';
 
 export interface ApiConfig extends AxiosRequestConfig {
   baseURL: string;
@@ -16,11 +16,11 @@ export interface ExtendedAxiosRequestConfig extends AxiosRequestConfig {
   retryCount?: number;
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   data: T;
   status: number;
   statusText: string;
-  headers: any;
+  headers: unknown;
 }
 
 export interface ApiError extends Error {
@@ -29,18 +29,8 @@ export interface ApiError extends Error {
   response?: AxiosResponse;
   config?: AxiosRequestConfig;
   isAxiosError: boolean;
-  data?: any;
-  headers?: any;
-}
-
-export interface RequestInterceptor {
-  onRequest?: (config: AxiosRequestConfig) => AxiosRequestConfig;
-  onRequestError?: (error: AxiosError) => Promise<never>;
-}
-
-export interface ResponseInterceptor {
-  onResponse?: (response: AxiosResponse) => AxiosResponse;
-  onResponseError?: (error: AxiosError) => Promise<never>;
+  data?: unknown;
+  headers?: unknown;
 }
 
 export interface ApiErrorMessage {

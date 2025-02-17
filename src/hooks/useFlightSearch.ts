@@ -1,4 +1,4 @@
-import { useSearch } from "@/context/SearchContext";
+import useSearch from '@hooks/useSearch';
 
 export const useFlightClass = () => {
   const { flightClass, setFlightClass } = useSearch();
@@ -16,7 +16,6 @@ export const useDateRange = () => {
 };
 
 export const useLocations = () => {
-  const { fromLocation, setFromLocation, toLocation, setToLocation } =
-    useSearch();
+  const { fromLocation, setFromLocation, toLocation, setToLocation } = useSearch();
   return { fromLocation, setFromLocation, toLocation, setToLocation };
 };

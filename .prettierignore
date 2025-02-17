@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+.yarn
+
+# Build outputs
+dist
+build
+
+# Cache
+.cache
+.eslintcache
+
+# Misc
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Coverage directory
+coverage

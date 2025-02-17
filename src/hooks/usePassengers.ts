@@ -1,6 +1,6 @@
-import { useCallback, useMemo } from "react";
-import { useSearch } from "@/context/SearchContext";
-import type { PassengerType, PassengersCount } from "@/types/Passenger";
+import { useCallback, useMemo } from 'react';
+import useSearch from '@hooks/useSearch';
+import type { PassengerType, PassengersCount } from '@flights/types/passenger';
 
 interface ValidationResult {
   isValid: boolean;
@@ -11,7 +11,7 @@ export const usePassengers = () => {
   const { passengers, setPassengers } = useSearch();
 
   const validatePassengerUpdate = useCallback(
-    (type: PassengerType["type"], newCount: number): ValidationResult => {
+    (type: PassengerType['type'], newCount: number): ValidationResult => {
       const totalPassengers =
         Object.values(passengers).reduce((sum, count) => sum + count, 0) +
         (newCount - passengers[type]);
@@ -19,21 +19,21 @@ export const usePassengers = () => {
       if (totalPassengers > 9) {
         return {
           isValid: false,
-          message: "Maximum 9 passengers allowed",
+          message: 'Maximum 9 passengers allowed',
         };
       }
 
-      if (type === "adults") {
+      if (type === 'adults') {
         if (newCount < 1) {
           return {
             isValid: false,
-            message: "At least 1 adult is required",
+            message: 'At least 1 adult is required',
           };
         }
         if (newCount < passengers.infants) {
           return {
             isValid: false,
-            message: "Number of adults cannot be less than number of infants",
+            message: 'Number of adults cannot be less than number of infants',
           };
         }
       }
@@ -44,7 +44,7 @@ export const usePassengers = () => {
   );
 
   const updatePassenger = useCallback(
-    (type: PassengerType["type"], increment: boolean): ValidationResult => {
+    (type: PassengerType['type'], increment: boolean): ValidationResult => {
       const newCount = increment ? passengers[type] + 1 : passengers[type] - 1;
       const validation = validatePassengerUpdate(type, newCount);
 
@@ -68,18 +68,12 @@ export const usePassengers = () => {
   const getPassengerSummary = useMemo(() => {
     const summary = [];
     if (passengers.adults)
-      summary.push(
-        `${passengers.adults} Adult${passengers.adults > 1 ? "s" : ""}`
-      );
+      summary.push(`${passengers.adults} Adult${passengers.adults > 1 ? 's' : ''}`);
     if (passengers.childrens)
-      summary.push(
-        `${passengers.childrens} Child${passengers.childrens > 1 ? "ren" : ""}`
-      );
+      summary.push(`${passengers.childrens} Child${passengers.childrens > 1 ? 'ren' : ''}`);
     if (passengers.infants)
-      summary.push(
-        `${passengers.infants} Infant${passengers.infants > 1 ? "s" : ""}`
-      );
-    return summary.join(", ");
+      summary.push(`${passengers.infants} Infant${passengers.infants > 1 ? 's' : ''}`);
+    return summary.join(', ');
   }, [passengers]);
 
   return {

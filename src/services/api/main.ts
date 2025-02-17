@@ -1,13 +1,13 @@
-import { api } from "../ApiClient";
+import { api } from '../ApiClient';
 
 export const mainApi = {
   getLocale: async () => {
     try {
       const response = await api.main().request({
-        method: "GET",
-        url: "getLocale",
+        method: 'GET',
+        url: 'getLocale',
       });
-      console.log("test vaslue llllllll ", response);
+      console.log('test vaslue llllllll ', response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -17,10 +17,10 @@ export const mainApi = {
   getConfig: async () => {
     try {
       const response = await api.main().request({
-        method: "GET",
-        url: "getConfig",
+        method: 'GET',
+        url: 'getConfig',
       });
-      console.log("test vaslue llllllll ", response);
+      console.log('test vaslue llllllll ', response);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -30,8 +30,8 @@ export const mainApi = {
   checkServer: async () => {
     try {
       const response = await api.main().request({
-        method: "GET",
-        url: "checkServer",
+        method: 'GET',
+        url: 'checkServer',
       });
       return response.data;
     } catch (error) {

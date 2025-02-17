@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
+
 export interface FlightSelectProps {
-  prefix: React.ReactElement | null;
-  type: "from" | "to";
+  prefix: ReactNode | null;
+  type: 'from' | 'to';
   placeholder?: string;
 }
 
@@ -8,6 +10,15 @@ export interface SearchApiResponse {
   status: boolean;
   timestamp: number;
   data: SearchResult[];
+}
+
+export interface NearByApiResponse {
+  status: boolean;
+  timestamp: number;
+  data: {
+    current?: SearchResult;
+    nearby?: SearchResult[];
+  };
 }
 
 export interface SearchResult {
@@ -40,8 +51,8 @@ export interface RelevantParams {
 }
 
 export interface FlightSelectProps {
-  prefix: React.ReactElement | null;
-  type: "from" | "to";
+  prefix: ReactNode | null;
+  type: 'from' | 'to';
   placeholder?: string;
 }
 
@@ -65,7 +76,7 @@ export interface Location {
     relevantFlightParams: RelevantParams;
   };
   nearby: Array<Nearby | null>;
-  recent: any[];
+  recent: unknown[];
 }
 
 export interface FlightSearchParams {
@@ -75,18 +86,18 @@ export interface FlightSearchParams {
   destinationEntityId: string;
   date: string;
   returnDate?: string;
-  cabinClass?: "economy" | "premium_economy" | "business" | "first";
+  cabinClass?: 'economy' | 'premium_economy' | 'business' | 'first';
   adults?: number;
   childrens?: number;
   infants?: number;
   sortBy?:
-    | "best"
-    | "price_high"
-    | "fastest"
-    | "outbound_take_off_time"
-    | "outbound_landing_time"
-    | "return_take_off_time"
-    | "return_landing_time";
+    | 'best'
+    | 'price_high'
+    | 'fastest'
+    | 'outbound_take_off_time'
+    | 'outbound_landing_time'
+    | 'return_take_off_time'
+    | 'return_landing_time';
 }
 
 export interface Airport {
@@ -152,11 +163,6 @@ export interface Context {
   totalResults: number;
 }
 
-export interface FlightData {
-  context: Context;
-  itineraries: Itinerary[];
-}
-
 export interface FlightAccordionCardProps {
   itinerary: Itinerary;
 }
@@ -164,7 +170,7 @@ export interface FlightAccordionCardProps {
 export interface FlightResult {
   context: Context;
   itineraries: Itinerary[];
-  messages: any[];
+  messages: unknown[];
   filterStats: FilterStats;
   flightsSessionId: string;
   destinationImageUrl: string;
@@ -251,7 +257,7 @@ export interface CalendarSearchParams {
 export interface DatePrice {
   day: string;
   price: number;
-  group: "low" | "medium" | "high";
+  group: 'low' | 'medium' | 'high';
 }
 
 export interface PriceGroup {
@@ -260,23 +266,18 @@ export interface PriceGroup {
   high: number[];
 }
 
-export interface CustomDateRangeProps {
-  datePrices?: FlightDay[];
-  currency?: string;
-}
-
-export type FlightGroup = {
+type FlightGroup = {
   id: string;
   label: string;
 };
 
 export type FlightDay = {
   day: string;
-  group: "low" | "medium" | "high";
+  group: 'low' | 'medium' | 'high';
   price: number;
 };
 
-export type FlightsData = {
+type FlightsData = {
   noPriceLabel: string;
   groups: FlightGroup[];
   days: FlightDay[];
@@ -287,3 +288,11 @@ export type FlightResponse = {
   data: { flights: FlightsData };
   status: boolean;
 };
+
+export interface FlightResultsContextType {
+  result: FlightResult | null;
+  isLoading: boolean;
+  error: string | null;
+  searchFlights: () => Promise<void>;
+  clearResults: () => void;
+}

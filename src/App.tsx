@@ -1,25 +1,23 @@
-import { useEffect } from "react";
-import SearchBox from "@/components/SearchBox";
-import FlightList from "./components/FlightList";
-import { SearchProvider } from "./context/SearchContext";
-import { FlightResultsProvider } from "./context/FlightResultsContext";
-import { getDefaultCurrency, getDefaultLocale } from "./utils/userLocation";
-import Layout from "./components/layout";
+import { useEffect } from 'react';
+
+import SearchProvider from '@context/SearchContext';
+import FlightResultsProvider from '@context/FlightResultsContext';
+import { getDefaultCurrency, getDefaultLocale } from '@utils/userLocation';
+import Layout from '@components/Layout';
+import SearchBox from '@components/SearchBox';
+import FlightList from '@components/FlightList';
 
 function App() {
   useEffect(() => {
     const fetchLocaleAndCurrency = async () => {
       try {
         const locale = await getDefaultLocale();
-        localStorage.setItem("userLocale", locale);
+        localStorage.setItem('userLocale', locale);
 
         const currency = await getDefaultCurrency();
-        localStorage.setItem("userCurrency", currency);
-
-        console.log("Stored Locale:", locale);
-        console.log("Stored Currency:", currency);
+        localStorage.setItem('userCurrency', currency);
       } catch (error) {
-        console.error("Error setting locale and currency:", error);
+        console.error('Error setting locale and currency:', error);
       }
     };
 

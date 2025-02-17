@@ -1,20 +1,21 @@
-import React, { memo, useCallback } from "react";
-import { useFlightClass, useRoundTrip } from "@/hooks/useFlightSearch";
-import SVG from "@/assets/icons";
-import { ROUND_TRIP, FLIGHT_CLASS } from "@utils/constraints";
-import CustomSelect from "@ui/CustomSelect";
-import CustomDateRange from "@ui/CustomDateRange";
-import FlightSelect from "@ui/FlightSelect";
-import PassengersCounter from "./UI/PassengersCounter";
-import { Button } from "antd";
-import { useSearch } from "@/context/SearchContext";
-import { useFlightResults } from "@/context/FlightResultsContext";
+import { memo, useCallback } from 'react';
+import { useFlightClass, useRoundTrip } from '@hooks/useFlightSearch';
+import SVG from '@assets/icons';
+import { ROUND_TRIP, FLIGHT_CLASS } from '@utils/constraints';
+import CustomSelect from '@components/CustomSelect';
+import CustomDateRange from '@components/CustomDateRange';
+import FlightSelect from '@components/FlightSelect';
+import PassengersCounter from '@components/PassengersCounter';
+import { Button } from 'antd';
+import useSearch from '@hooks/useSearch';
+import useFlightResults from '@hooks/useFlightResaults';
 
-const SearchBox: React.FC = memo(() => {
+function SearchBox() {
   const { roundTrip, setRoundTrip } = useRoundTrip();
   const { flightClass, setFlightClass } = useFlightClass();
-  const { dateRange } = useSearch();
   const { searchFlights, isLoading } = useFlightResults();
+
+  useSearch();
 
   const handleRoundTripChange = useCallback(
     (value: string) => {
@@ -32,7 +33,7 @@ const SearchBox: React.FC = memo(() => {
 
   const handleSearch = useCallback(async () => {
     await searchFlights();
-  }, [dateRange]);
+  }, [searchFlights]);
 
   return (
     <div className="mx-auto max-w-6xl p-4">
@@ -62,21 +63,12 @@ const SearchBox: React.FC = memo(() => {
         <div className="grid grid-cols-[60%_40%] gap-4">
           <div className="">
             <div className="grid grid-cols-2 gap-3">
-              <FlightSelect
-                type="from"
-                prefix={<SVG id="start-point" width="20" height="20" />}
-              />
-              <FlightSelect
-                type="to"
-                prefix={<SVG id="pointer" width="20" height="20" />}
-              />
+              <FlightSelect type="from" prefix={<SVG id="start-point" width="20" height="20" />} />
+              <FlightSelect type="to" prefix={<SVG id="pointer" width="20" height="20" />} />
             </div>
           </div>
           <div className="pe-4">
-            <CustomDateRange
-              datePrices={dateResults?.prices}
-              currency={localStorage.getItem("userCurrency") || "USD"}
-            />
+            <CustomDateRange />
           </div>
         </div>
         <div className="mx-auto absolute -bottom-4 left-1/2 transform -translate-x-1/2">
@@ -87,14 +79,14 @@ const SearchBox: React.FC = memo(() => {
             className="!rounded-full !py-6 !px-5 !hover:bg-blue-300 !bg-blue-500 !border-none text-black font-medium"
           >
             <SVG id="search" width="20" height="20" />
-            <span className="text-lg">{true ? "Search" : "Explor"}</span>
+            <span className="text-lg">Search</span>
           </Button>
         </div>
       </div>
     </div>
   );
-});
+}
 
-SearchBox.displayName = "SearchBox";
+SearchBox.displayName = 'SearchBox';
 
-export default SearchBox;
+export default memo(SearchBox);

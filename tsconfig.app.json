@@ -24,13 +24,15 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
-      "@ui/*": ["./src/components/UI/*"],
+      "@context/*": ["./src/context/*"],
+      "@services/*": ["./src/services/*"],
       "@pages/*": ["./src/pages/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"],
-    },
+      "@flights/types/*": ["./src/types/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
   },
   "include": ["src"]
 }

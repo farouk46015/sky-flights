@@ -1,11 +1,9 @@
-import React from "react";
-
-const SearchResults: React.FC = () => {
+function SearchResults() {
   return (
     <div>
       <h1>SearchResults</h1>
     </div>
   );
-};
+}
 
 export default SearchResults;

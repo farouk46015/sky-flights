@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { mainApi } from "@/services/api/main";
+import { useState, useEffect } from 'react';
+import { mainApi } from '@services/api/main';
 
 interface Currency {
   label: string;
@@ -61,45 +61,46 @@ export const useLocaleConfig = (): LocaleConfig => {
   const [error, setError] = useState<Error | null>(null);
 
   const [selectedLocale, setSelectedLocale] = useState(
-    () => localStorage.getItem("userLocale") || "en-US"
+    () => localStorage.getItem('userLocale') || 'en-US'
   );
 
   const [selectedCurrency, setSelectedCurrency] = useState(
-    () => localStorage.getItem("userCurrency") || "USD"
+    () => localStorage.getItem('userCurrency') || 'USD'
   );
 
   const [selectedCountry, setSelectedCountry] = useState(
-    () => localStorage.getItem("userCountry") || "US__en-US"
+    () => localStorage.getItem('userCountry') || 'US__en-US'
   );
 
   useEffect(() => {
     const fetchConfig = async () => {
       try {
-        const cachedLocales = localStorage.getItem("cachedLocales");
-        const cachedConfig = localStorage.getItem("cachedConfig");
-        const cacheTimestamp = localStorage.getItem("configCacheTimestamp");
+        const cachedLocales = localStorage.getItem('cachedLocales');
+        const cachedConfig = localStorage.getItem('cachedConfig');
+        const cacheTimestamp = localStorage.getItem('configCacheTimestamp');
 
         const isCacheValid =
-          cacheTimestamp &&
-          Date.now() - parseInt(cacheTimestamp) < 24 * 60 * 60 * 1000;
+          cacheTimestamp && Date.now() - parseInt(cacheTimestamp) < 24 * 60 * 60 * 1000;
 
         if (
           isCacheValid &&
           cachedLocales &&
           cachedConfig &&
-          cachedLocales != "undefined" &&
-          cachedConfig != "undefined"
+          cachedLocales != 'undefined' &&
+          cachedConfig != 'undefined'
         ) {
           setLocales(JSON.parse(cachedLocales));
           const configs = JSON.parse(cachedConfig);
-          const currenciesList = configs.map((i: any) => ({
+          const currenciesList = configs.map((i: ConfigData) => ({
             label: i.currency,
             value: i.currency,
           }));
-          const countriesList = configs.map((i: any) => ({
+
+          const countriesList = configs.map((i: ConfigData) => ({
             label: i.country,
             value: `${i.countryCode}__${i.market}`,
           }));
+
           setCurrencies(currenciesList);
           setCountries(countriesList);
           setLoading(false);
@@ -124,15 +125,9 @@ export const useLocaleConfig = (): LocaleConfig => {
           setCurrencies(currenciesList);
           setCountries(countriesList);
 
-          localStorage.setItem(
-            "cachedLocales",
-            JSON.stringify(localeResponse.data)
-          );
-          localStorage.setItem(
-            "cachedConfig",
-            JSON.stringify(configResponse.data)
-          );
-          localStorage.setItem("configCacheTimestamp", Date.now().toString());
+          localStorage.setItem('cachedLocales', JSON.stringify(localeResponse.data));
+          localStorage.setItem('cachedConfig', JSON.stringify(configResponse.data));
+          localStorage.setItem('configCacheTimestamp', Date.now().toString());
         }
       } catch (err) {
         setError(err as Error);
@@ -146,17 +141,17 @@ export const useLocaleConfig = (): LocaleConfig => {
 
   const updateLocale = (locale: string) => {
     setSelectedLocale(locale);
-    localStorage.setItem("userLocale", locale);
+    localStorage.setItem('userLocale', locale);
   };
 
   const updateCurrency = (currency: string) => {
     setSelectedCurrency(currency);
-    localStorage.setItem("userCurrency", currency);
+    localStorage.setItem('userCurrency', currency);
   };
 
   const updateCountry = (country: string) => {
     setSelectedCountry(country);
-    localStorage.setItem("userCountry", country);
+    localStorage.setItem('userCountry', country);
   };
 
   return {

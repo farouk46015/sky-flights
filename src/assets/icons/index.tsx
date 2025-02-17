@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { type ReactNode } from 'react';
 
 interface SVGProps {
   width?: number | string | null;
@@ -13,7 +13,7 @@ interface SVGProps {
   className?: string;
 }
 
-const SVG: React.FC<SVGProps> = ({
+function SVG({
   width = null,
   height = null,
   viewBox,
@@ -22,11 +22,11 @@ const SVG: React.FC<SVGProps> = ({
   id,
   children,
   isHidden,
-  useClass = "",
-  className = "",
-}) => {
-  const _width = width ? width.toString().replace("%", "") : "100";
-  const _height = height ? height.toString().replace("%", "") : "100";
+  useClass = '',
+  className = '',
+}: SVGProps) {
+  const _width = width ? width.toString().replace('%', '') : '100';
+  const _height = height ? height.toString().replace('%', '') : '100';
   const _viewBox = viewBox ? viewBox : `0 0 ${_width} ${_height}`;
 
   return isHidden ? (
@@ -41,11 +41,11 @@ const SVG: React.FC<SVGProps> = ({
       width={_width}
       height={_height}
       viewBox={_viewBox}
-      className={`${className} ${fill ? "fill" : ""} ${stroke ? "stroke" : ""}`}
+      className={`${className} ${fill ? 'fill' : ''} ${stroke ? 'stroke' : ''}`}
     >
       <use xlinkHref={`#${id}`} className={useClass} />
     </svg>
   );
-};
+}
 
 export default SVG;

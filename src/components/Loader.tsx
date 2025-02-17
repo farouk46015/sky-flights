@@ -1,4 +1,4 @@
-export const Loader = ({ text = "Loading..." }) => {
+export function Loader({ text = 'Loading...' }) {
   return (
     <div className="loader-container">
       <div className="loader-content">
@@ -13,6 +13,6 @@ export const Loader = ({ text = "Loading..." }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Loader;

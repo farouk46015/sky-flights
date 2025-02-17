@@ -1,8 +1,6 @@
-import React from "react";
+import SearchBox from '@components/SearchBox';
 
-import SearchBox from "../components/SearchBox";
-
-const Home: React.FC = () => {
+function Home() {
   return (
     <div>
       <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 bg-red-500">
@@ -13,6 +11,6 @@ const Home: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;

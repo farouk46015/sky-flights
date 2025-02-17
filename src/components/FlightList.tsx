@@ -1,8 +1,7 @@
-import React from "react";
-import FlightAccordionCard from "./UI/FlightAccordionCard";
-import { useFlightResults } from "@/context/FlightResultsContext";
+import FlightAccordionCard from '@components/FlightAccordionCard';
+import useFlightResults from '@hooks/useFlightResaults';
 
-const FlightList: React.FC = () => {
+function FlightList() {
   const { result } = useFlightResults();
 
   return (
@@ -15,10 +14,7 @@ const FlightList: React.FC = () => {
         ) : (
           <div>
             <div className="text-lg text-center">No Flights Found</div>
-            <img
-              src={result?.destinationImageUrl}
-              className="w-[40vw] mx-auto mt-3 rounded-md"
-            />
+            <img src={result?.destinationImageUrl} className="w-[40vw] mx-auto mt-3 rounded-md" />
           </div>
         )}
       </div>
@@ -27,6 +23,6 @@ const FlightList: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default FlightList;

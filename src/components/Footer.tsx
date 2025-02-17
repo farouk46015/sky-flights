@@ -1,10 +1,10 @@
-import React, { memo, useMemo } from "react";
-import SVG from "@/assets/icons";
-import { Spin } from "antd";
-import CustomSelect from "../UI/CustomSelect";
-import { useLocaleConfig } from "@/hooks/useLocaleConfig";
+import { memo, useMemo } from 'react';
+import SVG from '@assets/icons';
+import { Spin } from 'antd';
+import CustomSelect from '@components/CustomSelect';
+import { useLocaleConfig } from '@hooks/useLocaleConfig';
 
-const Footer: React.FC = memo(() => {
+function Footer() {
   const {
     locales,
     currencies,
@@ -19,13 +19,12 @@ const Footer: React.FC = memo(() => {
     updateCountry,
   } = useLocaleConfig();
 
-  // Prepare options with searchable text
   const countryOptions = useMemo(
     () =>
       countries.map((country) => ({
         value: country.value,
         label: country.label,
-        searchText: `${country.label} ${country.value.split("__")[0]}`, // Include country code in search
+        searchText: `${country.label} ${country.value.split('__')[0]}`,
       })),
     [countries]
   );
@@ -35,7 +34,7 @@ const Footer: React.FC = memo(() => {
       locales.map((locale) => ({
         value: locale.id,
         label: locale.text,
-        searchText: `${locale.text} ${locale.id}`, // Include locale ID in search
+        searchText: `${locale.text} ${locale.id}`,
       })),
     [locales]
   );
@@ -45,7 +44,7 @@ const Footer: React.FC = memo(() => {
       currencies.map((currency) => ({
         value: currency.value,
         label: currency.label,
-        searchText: `${currency.label} ${currency.value}`, // Include currency code in search
+        searchText: `${currency.label} ${currency.value}`,
       })),
     [currencies]
   );
@@ -108,14 +107,12 @@ const Footer: React.FC = memo(() => {
               />
             </div>
           </div>
-
-          <div className="flex gap-4">{/* Additional footer content */}</div>
         </div>
       </div>
     </footer>
   );
-});
+}
 
-Footer.displayName = "Footer";
+Footer.displayName = 'Footer';
 
-export default Footer;
+export default memo(Footer);
