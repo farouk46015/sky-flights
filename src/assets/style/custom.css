@@ -1,0 +1,29 @@
+.ant-select-selector {
+    border: none !important;
+    box-shadow: none !important;
+    padding-left: 0 !important;
+  }
+  
+  .ant-select-selection-search-input {
+    padding-left: 0 !important;
+  }
+  
+  .ant-select:focus-within .ant-select-selector {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .ant-select-dropdown {
+    padding: 8px !important;
+  }
+  .ant-select-selection-item{
+    padding: 8px 16px !important;
+  }
+  .ant-select-arrow{
+    width: 10px;
+  }
+
+  :where(.css-dev-only-do-not-override-1jscxey).ant-picker-dropdown .ant-picker-cell-in-view.ant-picker-cell-in-range:not(.ant-picker-cell-disabled):before{
+    opacity: 0.4 !important;
+    border-radius: 50%;
+  }
